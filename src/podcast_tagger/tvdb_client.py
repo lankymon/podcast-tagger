@@ -3,7 +3,7 @@ import json
 from .config import (
     API_KEY, TVDB_LOGIN_URL, TVDB_SEARCH_URL, TVDB_SERIES_URL, JSON_PATH
 )
-
+from .utils import debug_log
 def authenticate():
     response = requests.post(TVDB_LOGIN_URL, json={"apikey": API_KEY})
     response.raise_for_status()

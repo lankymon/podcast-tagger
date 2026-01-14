@@ -12,8 +12,12 @@ data/raw/
 data/processed/
 
 # VS Code
-.vscode/
+.vscode/*
+!.vscode/settings.json
 
 # Environment variables
 .env 
 *.env
+
+# Distribution / packaging
+*.egg-info/
