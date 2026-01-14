@@ -13,3 +13,7 @@ data/processed/
 
 # VS Code
 .vscode/
+
+# Environment variables
+.env 
+*.env
