@@ -11,14 +11,22 @@ def authenticate():
     token = response.json()["data"]["token"]
     return {"Authorization": f"Bearer {token}"}
 
-def fetch_series_id(headers, name="SmartLess"):
+def fetch_series_id(headers, name):
     r = requests.get(
         TVDB_SEARCH_URL,
         params={"query": name, "type": "series"},
         headers=headers
     )
     r.raise_for_status()
-    return r.json()["data"][0]["tvdb_id"]
+    data = r.json().get("data", [])
+
+    if not data:
+        print(f"Warning: No TVDB match found for show name: '{name}'")
+        return None
+
+    return data[0]["tvdb_id"]
+    
+
 
 def fetch_episodes(headers, series_id):
     r = requests.get(

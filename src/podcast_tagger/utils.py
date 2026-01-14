@@ -22,3 +22,11 @@ def normalise(text):
         .replace("’", "")
         .replace("'", "")
     )
+
+import os
+
+
+def detect_show_name(folder_path):
+    """Extract show name from folder path, stripping suffixes if needed."""
+    base = os.path.basename(folder_path)
+    return base.split(" - ")[0].strip()

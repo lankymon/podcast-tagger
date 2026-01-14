@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 API_KEY = os.getenv("TVDB_API_KEY", "")
-MP3_FOLDER = os.getenv("SMARTLESS_MP3_FOLDER", "")
+MP3_FOLDER = os.getenv("MP3_FOLDER", "")
 
 JSON_PATH = "data/external/smartless.json"
 
