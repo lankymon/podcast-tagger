@@ -1,0 +1,15 @@
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data (project-specific, not synced)
+data/raw/
+data/processed/
+
+# VS Code
+.vscode/
