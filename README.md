@@ -96,9 +96,8 @@ This project follows semantic versioning.
 
 - `0.1.0` — initial version
 - `0.2.0` — dynamic show detection, regex suffix stripping, TVDB fallback, expanded debug logging
-- **`0.3.0` — Listen Notes fallback provider, unified metadata structure, expanded multi‑provider architecture, BBC Sounds scraper scaffold**
-
----
+- `0.3.0` — Listen Notes fallback provider, unified metadata structure, expanded multi‑provider architecture
+- **`0.3.1` — BBC Sounds scraper scaffold, README updates, improved fallback behaviour**
 
 ## License
 
