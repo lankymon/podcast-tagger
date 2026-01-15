@@ -6,6 +6,28 @@ This project adheres to **Semantic Versioning** and follows the **Keep a Changel
 
 ---
 
+## [0.3.1] – 2026‑01‑15
+
+### Added
+
+- Introduced **BBC Sounds scraper scaffold** using Playwright persistent browser context.
+- Added new `bbc_scraper.py` module with episode‑extraction pipeline (title, description, date, duration, artwork).
+- Included DOM‑probe diagnostics to verify hydration and lazy‑load behaviour.
+- Updated README with BBC Sounds section, usage notes, and future‑plans outline.
+
+### Changed
+
+- BBC provider now gracefully skips scraping when Chrome is not available on the system.
+- Improved fallback behaviour to ensure the pipeline remains stable even when BBC metadata cannot be retrieved.
+
+### Notes
+
+- BBC Sounds scraping is **experimental** and disabled by default.
+- Full functionality requires **Google Chrome** due to BBC’s bot‑detection blocking Chromium automation.
+- This release prepares the project for future metadata caching and optional BBC integration.
+
+---
+
 ## [0.3.0] – 2026‑01‑14
 
 ### Added

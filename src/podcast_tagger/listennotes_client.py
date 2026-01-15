@@ -25,3 +25,28 @@ def ln_get_podcast_episodes(podcast_id: str):
     r = requests.get(url, headers=HEADERS)
     r.raise_for_status()
     return r.json().get("episodes", [])
+
+def fallback_listennotes(show_name, filename):
+    """Fallback metadata lookup using Listen Notes."""
+    shows = ln_search_show(show_name)
+    if not shows:
+        print(f"Listen Notes: no show found for '{show_name}'.")
+        return None
+
+    podcast_id = shows[0]["id"]
+    episodes = ln_get_podcast_episodes(podcast_id)
+
+    # Match by filename substring inside episode title
+    for ep in episodes:
+        title = ep.get("title", "").lower()
+        if filename.lower().replace(".mp3", "") in title:
+            return {
+                "title": ep.get("title"),
+                "description": ep.get("description"),
+                "episode_number": ep.get("episode_number"),
+                "image": ep.get("image"),
+                "pub_date": ep.get("pub_date_ms"),
+            }
+
+    print(f"Listen Notes: no episode match for '{filename}'.")
+    return None

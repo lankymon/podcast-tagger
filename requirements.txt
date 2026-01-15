@@ -1,3 +1,4 @@
 requests
 mutagen
 python-dotenv
+beautifulsoup4

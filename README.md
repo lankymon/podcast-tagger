@@ -2,19 +2,21 @@
 
 ## Overview
 
-Podcast Tagger is a metadata enrichment pipeline for podcast MP3 files. It fetches episode data from multiple metadata providers, matches it to local audio files, and applies ID3 tags including title, episode number, description, and artwork.
+**Podcast Tagger** is a metadata enrichment pipeline for podcast MP3 files. It retrieves episode information from multiple metadata providers, matches it to local audio files, and applies ID3 tags including title, episode number, description, and artwork.
 
-Originally designed for SmartLess episodes stored on a local NAS, the system now supports **dynamic detection of any show** based on the folder name. This includes robust **regex‑based stripping of suffixes** such as `(Live)`, `[Remastered]`, and `- New Batch`, ensuring consistent show identification even when folder names vary.
+Originally built for SmartLess episodes stored on a local NAS, the system now supports **automatic detection of any show** based on the folder name. This includes robust **regex‑based suffix stripping** (e.g., `(Live)`, `[Remastered]`, `- New Batch`) to ensure consistent show identification even when folder names vary.
 
-### Multi‑Provider Metadata Chain
+---
 
-As of version **0.3.0**, the pipeline uses a layered metadata strategy:
+## Multi‑Provider Metadata Chain
 
-1. **TVDB** — primary provider
+As of **0.3.0**, the pipeline uses a layered metadata strategy:
+
+1. **TVDB** — primary metadata source
 2. **Listen Notes** — fallback when TVDB has no series or missing episodes
-3. _(Future)_ BBC Sounds scraping for BBC‑exclusive shows
+3. **BBC Sounds (experimental)** — optional scraper for BBC‑exclusive shows, included as a scaffold for future use
 
-This ensures reliable tagging even when a show is missing from one provider.
+This multi‑provider chain ensures reliable tagging even when a show is missing from one service.
 
 ---
 
@@ -26,7 +28,7 @@ To create and activate the virtual environment and install dependencies:
 ./setup_env.ps1
 ```
 
-Ensure your `.env` file contains:
+Your `.env` file should contain:
 
 ```env
 TVDB_API_KEY=your-tvdb-key
@@ -35,20 +37,20 @@ MP3_FOLDER=your-mp3-directory
 ```
 
 > **Note:**  
-> `MP3_FOLDER` should point to the folder containing the MP3 files.  
+> `MP3_FOLDER` should point to the directory containing your MP3 files.  
 > The folder name is automatically parsed to detect the show name using regex‑based suffix stripping.
 
 ---
 
 ## Running Tests
 
-To run the test suite:
+Run the test suite with:
 
 ```bash
 ./run_tests.ps1
 ```
 
-The tests include:
+The tests cover:
 
 - environment variable loading
 - show‑name detection (including suffix variants)
@@ -70,27 +72,34 @@ To launch Jupyter Lab inside the project environment:
 
 ## Project Structure
 
-- `src/podcast_tagger/` – source code modules
-  - `core.py` – orchestration logic (show detection, metadata fetch, provider fallback, tagging pipeline)
-  - `tvdb_client.py` – TVDB API integration
-  - `listennotes_client.py` – Listen Notes API integration (fallback provider)
-  - `tagger.py` – MP3 tagging logic
-  - `utils.py` – filename and string helpers (including regex‑based show name detection)
-  - `config.py` – environment‑driven configuration
-- `metadata/` – serialized JSONs (cached episode metadata)
-- `notebooks/` – exploratory notebooks
-- `datasets/` – project‑specific datasets (not synced)
-- `scripts/` – helper scripts
-- `main.py` – entry point for the tagging pipeline
-- `.env` – environment variables (not committed)
-- `requirements.txt` – Python dependencies
+- `src/podcast_tagger/` — source code modules
+  - `core.py` — orchestration logic (show detection, metadata fetch, provider fallback, tagging pipeline)
+  - `tvdb_client.py` — TVDB API integration
+  - `listennotes_client.py` — Listen Notes API integration
+  - `tagger.py` — MP3 tagging logic
+  - `utils.py` — filename parsing and regex‑based show detection
+  - `config.py` — environment‑driven configuration
+  - `bbc_scraper.py` — experimental BBC Sounds scraper (persistent‑profile Playwright scaffold)
+- `metadata/` — cached episode metadata (JSON)
+- `notebooks/` — exploratory notebooks
+- `datasets/` — project‑specific datasets (not synced)
+- `scripts/` — helper scripts
+- `main.py` — entry point for the tagging pipeline
+- `.env` — environment variables (not committed)
+- `requirements.txt` — Python dependencies
 
 ---
 
-## Version
+## Version History
 
 This project follows semantic versioning.
 
 - `0.1.0` — initial version
-- `0.2.0` — dynamic show detection, regex suffix stripping, TVDB fallback, debug logging
-- **`0.3.0` — added Listen Notes fallback provider, new client module, unified metadata structure, expanded multi‑provider architecture**
+- `0.2.0` — dynamic show detection, regex suffix stripping, TVDB fallback, expanded debug logging
+- **`0.3.0` — Listen Notes fallback provider, unified metadata structure, expanded multi‑provider architecture, BBC Sounds scraper scaffold**
+
+---
+
+## License
+
+MIT License — see `LICENSE` for details.
